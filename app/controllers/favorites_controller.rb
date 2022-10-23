@@ -2,14 +2,14 @@ class FavoritesController < ApplicationController
 
   def create
     @blog = Blog.find(params[:blog_id])
-    current_user.favorites.create(blog_id: params[:blog_id])
-    redirect_to blogs_path
+    current_user.favorite_blogs << @blog
   end
 
   def destroy
-    favorite = current_user.favorites.find_by(id: params[:id])
-    @blog = favorite.blog
-    favorite.destroy
-    redirect_to blogs_path
+    @blog = current_user.favorite_blogs.find(params[:id])
+    current_user.favorite_blogs.destroy(@blog)
+    # favorite = current_user.favorites.find_by(id: params[:id])
+    # @blog = favorite.blog
+    # favorite.destroy
   end
 end
